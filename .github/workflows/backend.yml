@@ -1,0 +1,21 @@
+name: Backend Docker CI
+
+on:
+  push:
+    branches: [main] # 你要觸發的 branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build backend Docker image
+        working-directory: ./server # 重點：你的 Dockerfile / compose 在 server 下面
+        run: |
+          docker build -t im-backend:latest .

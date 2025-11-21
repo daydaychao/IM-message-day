@@ -1,0 +1,22 @@
+{
+    "sourceFile": "client/package.json",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1763716804138,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1763716811557,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n     \"dev\": \"vite\",\n     \"build\": \"vue-tsc && vite build\",\n     \"preview\": \"vite preview\",\n     \"tw:watch\": \"tailwindcss -i ./src/assets/tailwind.css -o ./src/assets/tw-output.css --watch\",\n-    \"dev:all\": \"concurrently \\\"yarn:tw:watch\\\" \\\"yarn:dev\\\"\"\n+    \"dev:tw\": \"concurrently \\\"yarn:tw:watch\\\" \\\"yarn:dev\\\"\"\n   },\n   \"dependencies\": {\n     \"pinia\": \"^2.1.7\",\n     \"vue\": \"^3.4.15\"\n"
+                }
+            ],
+            "date": 1763716804138,
+            "name": "Commit-0",
+            "content": "{\n  \"name\": \"im-chat-client\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Vue 3 frontend for IM chat demo\",\n  \"type\": \"module\",\n  \"scripts\": {\n    \"dev\": \"vite\",\n    \"build\": \"vue-tsc && vite build\",\n    \"preview\": \"vite preview\"\n\n        \"tw:watch\": \"tailwindcss -i ./src/assets/tailwind.css -o ./src/assets/tw-output.css --watch\",\n    \"dev:all\": \"concurrently \\\"yarn:tw:watch\\\" \\\"yarn:dev\\\"\"\n  },\n  \"dependencies\": {\n    \"pinia\": \"^2.1.7\",\n    \"vue\": \"^3.4.15\"\n  },\n  \"devDependencies\": {\n    \"@vitejs/plugin-vue\": \"^5.0.3\",\n    \"autoprefixer\": \"^10.4.17\",\n    \"postcss\": \"^8.4.33\",\n    \"tailwindcss\": \"^3.4.1\",\n    \"typescript\": \"^5.3.3\",\n    \"vite\": \"^5.0.11\",\n    \"vue-tsc\": \"^3.1.4\"\n  }\n}\n"
+        }
+    ]
+}

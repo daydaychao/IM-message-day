@@ -1,0 +1,30 @@
+{
+    "sourceFile": "client/src/components/LoginPage.vue",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 3,
+            "patches": [
+                {
+                    "date": 1763483568631,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1763485098747,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n <template>\n-  <div class=\"flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-500 to-purple-600\">\n+  <div class=\"flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-500 from-blue-100\">\n     <div class=\"bg-white rounded-lg shadow-2xl p-8 w-96\">\n       <h1 class=\"text-3xl font-bold text-center mb-6 text-gray-800\">IM Chat Demo</h1>\n \n       <div class=\"mb-6\">\n"
+                },
+                {
+                    "date": 1763485104041,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n <template>\n   <div\n-    class=\"flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-500 from-blue-100\"\n+    class=\"flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-500 from-blue-800\"\n   >\n     <div class=\"bg-white rounded-lg shadow-2xl p-8 w-96\">\n       <h1 class=\"text-3xl font-bold text-center mb-6 text-gray-800\">\n         IM Chat Demo\n"
+                },
+                {
+                    "date": 1763485119110,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n <template>\n   <div\n-    class=\"flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-500 from-blue-800\"\n+    class=\"flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-500 to-blue-800\"\n   >\n     <div class=\"bg-white rounded-lg shadow-2xl p-8 w-96\">\n       <h1 class=\"text-3xl font-bold text-center mb-6 text-gray-800\">\n         IM Chat Demo\n"
+                }
+            ],
+            "date": 1763483568631,
+            "name": "Commit-0",
+            "content": "<template>\n  <div class=\"flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-500 to-purple-600\">\n    <div class=\"bg-white rounded-lg shadow-2xl p-8 w-96\">\n      <h1 class=\"text-3xl font-bold text-center mb-6 text-gray-800\">IM Chat Demo</h1>\n\n      <div class=\"mb-6\">\n        <div class=\"flex border-b border-gray-300\">\n          <button\n            @click=\"mode = 'login'\"\n            :class=\"[\n              'flex-1 py-2 font-semibold transition-colors',\n              mode === 'login' ? 'text-blue-600 border-b-2 border-blue-600' : 'text-gray-500'\n            ]\"\n          >\n            登入\n          </button>\n          <button\n            @click=\"mode = 'register'\"\n            :class=\"[\n              'flex-1 py-2 font-semibold transition-colors',\n              mode === 'register' ? 'text-blue-600 border-b-2 border-blue-600' : 'text-gray-500'\n            ]\"\n          >\n            註冊\n          </button>\n        </div>\n      </div>\n\n      <form @submit.prevent=\"handleSubmit\" class=\"space-y-4\">\n        <div>\n          <label class=\"block text-sm font-medium text-gray-700 mb-1\">帳號</label>\n          <input\n            v-model=\"username\"\n            type=\"text\"\n            required\n            class=\"w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent\"\n            placeholder=\"輸入帳號\"\n          />\n        </div>\n\n        <div>\n          <label class=\"block text-sm font-medium text-gray-700 mb-1\">密碼</label>\n          <input\n            v-model=\"password\"\n            type=\"password\"\n            required\n            class=\"w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent\"\n            placeholder=\"輸入密碼\"\n          />\n        </div>\n\n        <button\n          type=\"submit\"\n          class=\"w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors\"\n        >\n          {{ mode === 'login' ? '登入' : '註冊' }}\n        </button>\n      </form>\n    </div>\n  </div>\n</template>\n\n<script setup lang=\"ts\">\nimport { ref } from 'vue'Mp\nimport { useChatSocket } from '../composables/useChatSocket'\n\nconst { login, register } = useChatSocket()\n\nconst mode = ref<'login' | 'register'>('login')\nconst username = ref('')\nconst password = ref('')\n\nfunction handleSubmit() {\n  if (mode.value === 'login') {\n    login(username.value, password.value)\n  } else {\n    register(username.value, password.value)\n  }\n}\n</script>\n"
+        }
+    ]
+}

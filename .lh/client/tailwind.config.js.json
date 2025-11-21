@@ -1,0 +1,42 @@
+{
+    "sourceFile": "client/tailwind.config.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 6,
+            "patches": [
+                {
+                    "date": 1763716080401,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1763716090665,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,11 @@\n /** @type {import('tailwindcss').Config} */\n+\n+/** root font size to pixel */\n+const getPxToRem = (px, suffix = \"rem\") => {\n+  return (px / 16).toFixed(2);\n+};\n+\n export default {\n   content: [\"./index.html\", \"./src/**/*.{vue,js,ts,jsx,tsx}\"],\n   theme: {\n     extend: {\n"
+                },
+                {
+                    "date": 1763716163776,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,12 +8,8 @@\n export default {\n   content: [\"./index.html\", \"./src/**/*.{vue,js,ts,jsx,tsx}\"],\n   theme: {\n     extend: {\n-      fontFamily: {\n-        sans: [\"Roboto\", ...defaultTheme.fontFamily.sans],\n-      },\n-\n       spacing: {\n         // 1: 0 ~ 1000\n         ...Array.from({ length: 1000 })\n           .map((_, i) => i)\n"
+                },
+                {
+                    "date": 1763716426346,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,8 +8,10 @@\n export default {\n   content: [\"./index.html\", \"./src/**/*.{vue,js,ts,jsx,tsx}\"],\n   theme: {\n     extend: {\n+      backround: {}.,\n+\n       spacing: {\n         // 1: 0 ~ 1000\n         ...Array.from({ length: 1000 })\n           .map((_, i) => i)\n"
+                },
+                {
+                    "date": 1763716432876,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,11 @@\n export default {\n   content: [\"./index.html\", \"./src/**/*.{vue,js,ts,jsx,tsx}\"],\n   theme: {\n     extend: {\n-      backround: {}.,\n+      backround: {\n+        bgMain: \"393A40\",\n+      },\n \n       spacing: {\n         // 1: 0 ~ 1000\n         ...Array.from({ length: 1000 })\n"
+                },
+                {
+                    "date": 1763716440055,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n   content: [\"./index.html\", \"./src/**/*.{vue,js,ts,jsx,tsx}\"],\n   theme: {\n     extend: {\n       backround: {\n-        bgMain: \"#393A40\",\n+        bg-main': \"#393A40\",\n       },\n \n       spacing: {\n         // 1: 0 ~ 1000\n"
+                },
+                {
+                    "date": 1763716575913,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n export default {\n   content: [\"./index.html\", \"./src/**/*.{vue,js,ts,jsx,tsx}\"],\n   theme: {\n     extend: {\n-      backround: {\n+      backgroundColor: {\n         main: \"#393A40\",\n       },\n \n       spacing: {\n"
+                }
+            ],
+            "date": 1763716080401,
+            "name": "Commit-0",
+            "content": "/** @type {import('tailwindcss').Config} */\nexport default {\n  content: [\"./index.html\", \"./src/**/*.{vue,js,ts,jsx,tsx}\"],\n  theme: {\n    extend: {\n      fontFamily: {\n        sans: [\"Roboto\", ...defaultTheme.fontFamily.sans],\n      },\n\n      spacing: {\n        // 1: 0 ~ 1000\n        ...Array.from({ length: 1000 })\n          .map((_, i) => i)\n          .reduce((res, n) => ({ ...res, [n]: `${getPxToRem(n)}rem` }), {}),\n\n        \"safe-top\": \"env(safe-area-inset-top);\",\n        \"safe-bottom\": \"env(safe-area-inset-bottom);\",\n        \"safe-left\": \"env(safe-area-inset-left);\",\n        \"safe-right\": \"env(safe-area-inset-right);\",\n      },\n      // 1: 0 ~ 40\n      fontSize: {\n        ...Array.from({ length: 50 })\n          .map((_, i) => i)\n          .reduce((res, n) => ({ ...res, [n]: `${getPxToRem(n)}rem` }), {}),\n      },\n      // 1 為單位: 0 ~ 40 = 0 ~ 40px\n      lineHeight: {\n        ...Array.from({ length: 40 })\n          .map((_, i) => i)\n          .reduce((res, n) => ({ ...res, [n]: `${getPxToRem(n)}rem` }), {}),\n        0: \"0\",\n      },\n      // 0.5 為單位: 0 ~ 100 = 0 ~ 100px\n      borderRadius: {\n        ...Array.from({ length: 200 })\n          .map((_, i) => (i * 0.5).toFixed(1))\n          .reduce(\n            (res, n) => ({ ...res, [parseFloat(n)]: `${getPxToRem(n)}rem` }),\n            {}\n          ),\n      },\n      // 0.5 為單位: 0 ~ 60 = 0 ~ 60px\n      borderWidth: {\n        ...Array.from({ length: 120 })\n          .map((_, i) => (i * 0.5).toFixed(1))\n          .reduce(\n            (res, n) => ({ ...res, [parseFloat(n)]: `${getPxToRem(n)}rem` }),\n            {}\n          ),\n      },\n      // 10 為單位: 0 ~ 200\n      zIndex: {\n        ...Array.from({ length: 15 })\n          .map((_, i) => (i + 1) * 10 + 50)\n          .reduce((res, n) => ({ ...res, [n]: n }), {}),\n      },\n      transitionDuration: {\n        400: \"400ms\",\n        300: \"300ms\",\n      },\n    },\n  },\n  plugins: [],\n};\n"
+        }
+    ]
+}

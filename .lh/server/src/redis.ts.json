@@ -1,0 +1,18 @@
+{
+    "sourceFile": "server/src/redis.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1763713650820,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1763713650819,
+            "name": "Commit-0",
+            "content": "import Redis from 'ioredis'\n\nconst redisClient = new Redis({\n  host: process.env.REDIS_HOST || \"localhost\",\n  port: parseInt(process.env.REDIS_PORT || \"6379\"),\n  password: process.env.REDIS_PASSWORD,\n  db: parseInt(process.env.REDIS_DB || \"imchat2024\"),\n  retryStrategy(times) {\n    const delay = Math.min(times * 50, 2000);\n    return delay;\n  },\n  maxRetriesPerRequest: 3,\n});\n\nredisClient.on('error', (err) => {\n  console.error('Redis Client Error:', err)\n})\n\nredisClient.on('connect', () => {\n  console.log('Redis Client Connected')\n})\n\nredisClient.on('ready', () => {\n  console.log('Redis Client Ready')\n})\n\nredisClient.on('close', () => {\n  console.log('Redis Client Connection Closed')\n})\n\nexport async function connectRedis() {\n  // ioredis connects automatically on instantiation\n  // Just wait for the 'ready' event\n  return new Promise<Redis>((resolve, reject) => {\n    if (redisClient.status === 'ready') {\n      resolve(redisClient)\n    } else {\n      redisClient.once('ready', () => resolve(redisClient))\n      redisClient.once('error', (err) => reject(err))\n    }\n  })\n}\n\nexport { redisClient }\n"
+        }
+    ]
+}

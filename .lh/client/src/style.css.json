@@ -1,0 +1,70 @@
+{
+    "sourceFile": "client/src/style.css",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 13,
+            "patches": [
+                {
+                    "date": 1763718180897,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1763718192319,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,9 @@\n @tailwind base;\n @tailwind components;\n @tailwind utilities;\n \n+/* 強制全域input樣式變更 */\n @layer base {\n   input {\n     @apply bg-stone-200 text-white;\n   }\n"
+                },
+                {
+                    "date": 1763718198586,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,9 @@\n \n /* 強制全域input樣式變更 */\n @layer base {\n   input {\n-    @apply bg-stone-200 text-white;\n+    @apply bg-stone-00 text-white;\n   }\n }\n \n * {\n"
+                },
+                {
+                    "date": 1763718206527,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,9 @@\n \n /* 強制全域input樣式變更 */\n @layer base {\n   input {\n-    @apply bg-stone-00 text-white;\n+    @apply bg-stone-800 text-st;\n   }\n }\n \n * {\n"
+                },
+                {
+                    "date": 1763718214719,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,9 @@\n \n /* 強制全域input樣式變更 */\n @layer base {\n   input {\n-    @apply bg-stone-800 text-st;\n+    @apply bg-stone-800 text-stone-200;\n   }\n }\n \n * {\n"
+                },
+                {
+                    "date": 1763718534655,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,8 @@\n @tailwind base;\n @tailwind components;\n @tailwind utilities;\n \n-/* 強制全域input樣式變更 */\n @layer base {\n   input {\n     @apply bg-stone-800 text-stone-200;\n   }\n"
+                },
+                {
+                    "date": 1763718659030,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n @tailwind base;\n @tailwind components;\n @tailwind utilities;\n \n-@layer base {\n+@layer base components {\n   input {\n     @apply bg-stone-800 text-stone-200;\n   }\n }\n"
+                },
+                {
+                    "date": 1763718672843,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,28 @@\n+@tailwind base;\n+@tailwind components;\n+@tailwind utilities;\n+\n+@layer base components {\n+  input {\n+     bg-stone-800 text-stone-200;\n+  }\n+}\n+\n+* {\n+  margin: 0;\n+  padding: 0;\n+  box-sizing: border-box;\n+}\n+\n+body {\n+  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen,\n+    Ubuntu, Cantarell, sans-serif;\n+  -webkit-font-smoothing: antialiased;\n+  -moz-osx-font-smoothing: grayscale;\n+}\n+\n+#app {\n+  width: 100vw;\n+  height: 100vh;\n+  overflow: hidden;\n+}\n"
+                },
+                {
+                    "date": 1763718695129,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,22 @@\n+@tailwind base;\n+@tailwind components;\n+@tailwind utilities;\n+\n+* {\n+  margin: 0;\n+  padding: 0;\n+  box-sizing: border-box;\n+}\n+\n+body {\n+  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen,\n+    Ubuntu, Cantarell, sans-serif;\n+  -webkit-font-smoothing: antialiased;\n+  -moz-osx-font-smoothing: grayscale;\n+}\n+\n+#app {\n+  width: 100vw;\n+  height: 100vh;\n+  overflow: hidden;\n+}\n"
+                },
+                {
+                    "date": 1763719057744,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,36 +1,12 @@\n @tailwind base;\n @tailwind components;\n @tailwind utilities;\n \n-* {\n-  margin: 0;\n-  padding: 0;\n-  box-sizing: border-box;\n+input {\n+  @apply bg-stone-800 text-stone-200 border-[red];\n }\n \n-body {\n-  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen,\n-    Ubuntu, Cantarell, sans-serif;\n-  -webkit-font-smoothing: antialiased;\n-  -moz-osx-font-smoothing: grayscale;\n-}\n-\n-#app {\n-  width: 100vw;\n-  height: 100vh;\n-  overflow: hidden;\n-}\n-@tailwind base;\n-@tailwind components;\n-@tailwind utilities;\n-\n-@layer base components {\n-  input {\n-     bg-stone-800 text-stone-200;\n-  }\n-}\n-\n * {\n   margin: 0;\n   padding: 0;\n   box-sizing: border-box;\n@@ -47,32 +23,4 @@\n   width: 100vw;\n   height: 100vh;\n   overflow: hidden;\n }\n-@tailwind base;\n-@tailwind components;\n-@tailwind utilities;\n-\n-@layer base components {\n-  input {\n-    @apply bg-stone-800 text-stone-200;\n-  }\n-}\n-\n-* {\n-  margin: 0;\n-  padding: 0;\n-  box-sizing: border-box;\n-}\n-\n-body {\n-  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen,\n-    Ubuntu, Cantarell, sans-serif;\n-  -webkit-font-smoothing: antialiased;\n-  -moz-osx-font-smoothing: grayscale;\n-}\n-\n-#app {\n-  width: 100vw;\n-  height: 100vh;\n-  overflow: hidden;\n-}\n"
+                },
+                {
+                    "date": 1763719062784,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,4 +19,8 @@\n   width: 100vw;\n   height: 100vh;\n   overflow: hidden;\n }\n+\n+input {\n+  @apply bg-stone-800 text-stone-200 border-[red];\n+}\n"
+                },
+                {
+                    "date": 1763719075821,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,22 @@\n+@tailwind base;\n+@tailwind components;\n+@tailwind utilities;\n+\n+* {\n+  margin: 0;\n+  padding: 0;\n+  box-sizing: border-box;\n+}\n+\n+body {\n+  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen,\n+    Ubuntu, Cantarell, sans-serif;\n+  -webkit-font-smoothing: antialiased;\n+  -moz-osx-font-smoothing: grayscale;\n+}\n+\n+#app {\n+  width: 100vw;\n+  height: 100vh;\n+  overflow: hidden;\n+}\n"
+                },
+                {
+                    "date": 1763738413099,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -91,4 +91,5 @@\n .hacker-border {\n   border: 1px solid var(--hacker-green);\n   box-shadow: 0 0 5px rgba(0, 255, 65, 0.3);\n }\n+.\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1763738421707,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -91,5 +91,7 @@\n .hacker-border {\n   border: 1px solid var(--hacker-green);\n   box-shadow: 0 0 5px rgba(0, 255, 65, 0.3);\n }\n-.warn\n\\ No newline at end of file\n+.warning-border{\n+  hacker-border\n+}\n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1763718180897,
+            "name": "Commit-0",
+            "content": "@tailwind base;\n@tailwind components;\n@tailwind utilities;\n\n@layer base {\n  input {\n    @apply bg-stone-200 text-white;\n  }\n}\n\n* {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n}\n\nbody {\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen,\n    Ubuntu, Cantarell, sans-serif;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\n\n#app {\n  width: 100vw;\n  height: 100vh;\n  overflow: hidden;\n}\n"
+        }
+    ]
+}

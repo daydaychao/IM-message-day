@@ -1,0 +1,22 @@
+{
+    "sourceFile": "server/docker-compose.yml",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1763713767347,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1763713773406,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n       - redis-data:/data\n     command: redis-server --appendonly yes --requirepass imchat2024\n     restart: unless-stopped\n     healthcheck:\n-      test: [\"CMD\", \"redis-cli\", \"-a\", \"imchat2024\", \"--raw\", \"incr\", \"ping\"]\n+     test: [\"CMD\", \"redis-cli\", \"-a\", \"imchat2024\", \"PING\"]\n       interval: 10s\n       timeout: 3s\n       retries: 5\n \n"
+                }
+            ],
+            "date": 1763713767347,
+            "name": "Commit-0",
+            "content": "services:\n  redis:\n    image: redis:7-alpine\n    container_name: im-redis\n    ports:\n      - \"6379:6379\"\n    volumes:\n      - redis-data:/data\n    command: redis-server --appendonly yes --requirepass imchat2024\n    restart: unless-stopped\n    healthcheck:\n      test: [\"CMD\", \"redis-cli\", \"-a\", \"imchat2024\", \"--raw\", \"incr\", \"ping\"]\n      interval: 10s\n      timeout: 3s\n      retries: 5\n\nvolumes:\n  redis-data:\n    driver: local\n"
+        }
+    ]
+}

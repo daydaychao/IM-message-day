@@ -1,0 +1,34 @@
+{
+    "sourceFile": "client/src/main.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 4,
+            "patches": [
+                {
+                    "date": 1763718946713,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1763719042714,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,8 @@\n import { createApp } from \"vue\";\n import { createPinia } from \"pinia\";\n import App from \"./App.vue\";\n import \"./style.css\";\n-import \"./uikits.css\";\n \n const app = createApp(App);\n const pinia = createPinia();\n \n"
+                },
+                {
+                    "date": 1763719170129,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,8 +2,9 @@\n import { createPinia } from \"pinia\";\n import App from \"./App.vue\";\n import \"./style.css\";\n \n+\n const app = createApp(App);\n const pinia = createPinia();\n \n app.use(pinia);\n"
+                },
+                {
+                    "date": 1763747963680,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,10 +1,13 @@\n-import { createApp } from 'vue'\n-import { createPinia } from 'pinia'\n-import App from './App.vue'\n-import './style.css'\n+import { createApp } from \"vue\";\n+import { createPinia } from \"pinia\";\n+import App from \"./App.vue\";\n+import \"./style.css\";\n \n-const app = createApp(App)\n-const pinia = createPinia()\n+// ✨ 新增這行\n+import naive from \"naive-ui\";\n \n-app.use(pinia)\n-app.mount('#app')\n+const app = createApp(App);\n+const pinia = createPinia();\n+\n+app.use(pinia);\n+app.mount(\"#app\");\n"
+                },
+                {
+                    "date": 1763747971052,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,4 +8,5 @@\n const pinia = createPinia();\n \n app.use(pinia);\n app.mount(\"#app\");\n+app.use(naive);\n"
+                }
+            ],
+            "date": 1763718946713,
+            "name": "Commit-0",
+            "content": "import { createApp } from \"vue\";\nimport { createPinia } from \"pinia\";\nimport App from \"./App.vue\";\nimport \"./style.css\";\nimport \"./uikits.css\";\n\nconst app = createApp(App);\nconst pinia = createPinia();\n\napp.use(pinia);\napp.mount(\"#app\");\n"
+        }
+    ]
+}

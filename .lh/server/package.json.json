@@ -1,0 +1,30 @@
+{
+    "sourceFile": "server/package.json",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 3,
+            "patches": [
+                {
+                    "date": 1763708891956,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1763708901964,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,9 @@\n   \"version\": \"1.0.0\",\n   \"description\": \"WebSocket server for IM chat demo\",\n   \"main\": \"dist/index.js\",\n   \"scripts\": {\n-    \"docker\":\"\",\n+    \"docker\": \"docker run -d -p 6379:6379 --name redis redis:alpine\",\n     \"dev\": \"tsx watch src/index.ts\",\n     \"build\": \"tsc\",\n     \"start\": \"node dist/index.js\"\n   },\n"
+                },
+                {
+                    "date": 1763709042460,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,14 @@\n   \"version\": \"1.0.0\",\n   \"description\": \"WebSocket server for IM chat demo\",\n   \"main\": \"dist/index.js\",\n   \"scripts\": {\n-    \"docker\": \"docker run -d -p 6379:6379 --name redis redis:alpine\",\n+    \"scripts\": {\n+    \"docker:up\": \"docker-compose up\",\n+    \"docker:down\": \"docker-compose down\",\n+    \"docker:build\": \"docker-compose build\",\n+    \"docker:restart\": \"docker-compose restart\"\n+  }\n     \"dev\": \"tsx watch src/index.ts\",\n     \"build\": \"tsc\",\n     \"start\": \"node dist/index.js\"\n   },\n"
+                },
+                {
+                    "date": 1763709048217,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,8 @@\n   \"version\": \"1.0.0\",\n   \"description\": \"WebSocket server for IM chat demo\",\n   \"main\": \"dist/index.js\",\n   \"scripts\": {\n-    \n     \"docker:up\": \"docker-compose up\",\n     \"docker:down\": \"docker-compose down\",\n     \"docker:build\": \"docker-compose build\",\n     \"docker:restart\": \"docker-compose restart\",\n"
+                }
+            ],
+            "date": 1763708891956,
+            "name": "Commit-0",
+            "content": "{\n  \"name\": \"im-chat-server\",\n  \"version\": \"1.0.0\",\n  \"description\": \"WebSocket server for IM chat demo\",\n  \"main\": \"dist/index.js\",\n  \"scripts\": {\n    \"docker\":\"\",\n    \"dev\": \"tsx watch src/index.ts\",\n    \"build\": \"tsc\",\n    \"start\": \"node dist/index.js\"\n  },\n  \"dependencies\": {\n    \"ioredis\": \"^5.8.2\",\n    \"redis\": \"^5.9.0\",\n    \"uuid\": \"^9.0.1\",\n    \"ws\": \"^8.16.0\"\n  },\n  \"devDependencies\": {\n    \"@types/ioredis\": \"^4.28.10\",\n    \"@types/node\": \"^20.11.5\",\n    \"@types/uuid\": \"^9.0.7\",\n    \"@types/ws\": \"^8.5.10\",\n    \"tsx\": \"^4.7.0\",\n    \"typescript\": \"^5.3.3\"\n  }\n}\n"
+        }
+    ]
+}

@@ -1,0 +1,26 @@
+{
+    "sourceFile": "client/src/components/compoments.css",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1763718706560,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1763718770705,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,3 @@\n-@layer base components {\r\n-  input {\r\n-    @apply bg-stone-800 text-stone-200;\r\n-  }\r\n+input {\r\n+  @apply bg-stone-800 text-stone-200;\r\n }\r\n"
+                },
+                {
+                    "date": 1763718781218,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n-@layer base {\r\n+@layer base components {\r\n   input {\r\n     @apply bg-stone-800 text-stone-200;\r\n   }\r\n }\r\n"
+                }
+            ],
+            "date": 1763718706560,
+            "name": "Commit-0",
+            "content": "@layer base components {\r\n  input {\r\n    @apply bg-stone-800 text-stone-200;\r\n  }\r\n}\r\n"
+        }
+    ]
+}

@@ -1,0 +1,30 @@
+{
+    "sourceFile": "client/src/components/chat/ChatPage.vue",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 3,
+            "patches": [
+                {
+                    "date": 1763733812900,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1763733869665,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,8 +20,11 @@\n </template>\r\n \r\n <script setup lang=\"ts\">\r\n import { ref } from \"vue\";\r\n+\r\n+import ConversationList from \"./components/chat/ConversationList.vue\";\r\n+import MessageList from \"./components/chat/MessageList.vue\";\r\n import { useChatSocket } from \"../../composables/useChatSocket\";\r\n \r\n const { login, register } = useChatSocket();\r\n \r\n"
+                },
+                {
+                    "date": 1763733875227,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,23 +22,8 @@\n <script setup lang=\"ts\">\r\n import { ref } from \"vue\";\r\n import ConversationList from \"./components/chat/ConversationList.vue\";\r\n import MessageList from \"./components/chat/MessageList.vue\";\r\n-import { useChatSocket } from \"../../composables/useChatSocket\";\r\n-\r\n-const { login, register } = useChatSocket();\r\n-\r\n-const mode = ref<\"login\" | \"register\">(\"login\");\r\n-const username = ref(\"\");\r\n-const password = ref(\"\");\r\n-\r\n-function handleSubmit() {\r\n-  if (mode.value === \"login\") {\r\n-    login(username.value, password.value);\r\n-  } else {\r\n-    register(username.value, password.value);\r\n-  }\r\n-}\r\n </script>\r\n \r\n <style scoped>\r\n .avator {\r\n"
+                },
+                {
+                    "date": 1763733881709,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,23 +1,6 @@\n <template>\r\n-  <div class=\"flex flex-col h-full p-5 bg-stone-900\">\r\n-    <div class=\"mb-6\">\r\n-      <h1 class=\"text-2xl font-bold text-center mb-6 text-white\">IM CHAT</h1>\r\n-    </div>\r\n-    <div\r\n-      class=\"self-center grid grid-cols-4 gap-4 text-white text-center text-2xl\"\r\n-    >\r\n-      <div class=\"avator-wrapper\">\r\n-        <div class=\"avator\"></div>\r\n-        <small>鼠</small>\r\n-      </div>\r\n-    </div>\r\n-    <button\r\n-      type=\"submit\"\r\n-      class=\"w-full h20 bg-emerald-600 text-white py-2 rounded-full font-semibold hover:bg-emerald-700 transition-colors\"\r\n-    ></button>\r\n-  </div>\r\n-  x\r\n+  <d\r\n </template>\r\n \r\n <script setup lang=\"ts\">\r\n import { ref } from \"vue\";\r\n"
+                }
+            ],
+            "date": 1763733812900,
+            "name": "Commit-0",
+            "content": "<template>\r\n  <div class=\"flex flex-col h-full p-5 bg-stone-900\">\r\n    <div class=\"mb-6\">\r\n      <h1 class=\"text-2xl font-bold text-center mb-6 text-white\">IM CHAT</h1>\r\n    </div>\r\n    <div\r\n      class=\"self-center grid grid-cols-4 gap-4 text-white text-center text-2xl\"\r\n    >\r\n      <div class=\"avator-wrapper\">\r\n        <div class=\"avator\"></div>\r\n        <small>鼠</small>\r\n      </div>\r\n    </div>\r\n    <button\r\n      type=\"submit\"\r\n      class=\"w-full h20 bg-emerald-600 text-white py-2 rounded-full font-semibold hover:bg-emerald-700 transition-colors\"\r\n    ></button>\r\n  </div>\r\n  x\r\n</template>\r\n\r\n<script setup lang=\"ts\">\r\nimport { ref } from \"vue\";\r\nimport { useChatSocket } from \"../../composables/useChatSocket\";\r\n\r\nconst { login, register } = useChatSocket();\r\n\r\nconst mode = ref<\"login\" | \"register\">(\"login\");\r\nconst username = ref(\"\");\r\nconst password = ref(\"\");\r\n\r\nfunction handleSubmit() {\r\n  if (mode.value === \"login\") {\r\n    login(username.value, password.value);\r\n  } else {\r\n    register(username.value, password.value);\r\n  }\r\n}\r\n</script>\r\n\r\n<style scoped>\r\n.avator {\r\n  @apply bg-stone-800;\r\n  font-size: 1rem;\r\n  width: 4rem;\r\n  height: 4rem;\r\n  line-height: 4rem;\r\n  border-radius: 1rem;\r\n  cursor: pointer;\r\n  user-select: none;\r\n}\r\n.avator:active {\r\n  @apply bg-emerald-900;\r\n}\r\n</style>\r\n"
+        }
+    ]
+}

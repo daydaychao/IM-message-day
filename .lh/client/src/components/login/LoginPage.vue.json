@@ -1,0 +1,18 @@
+{
+    "sourceFile": "client/src/components/login/LoginPage.vue",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1763733767883,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1763733767883,
+            "name": "Commit-0",
+            "content": "<template>\n  <div class=\"flex flex-col h-full p-5 bg-stone-900\">\n    <div class=\"mb-6\">\n      <h1 class=\"text-2xl font-bold text-center mb-6 text-white\">IM CHAT</h1>\n    </div>\n    <div\n      class=\"self-center grid grid-cols-4 gap-4 text-white text-center text-2xl\"\n    >\n      <div class=\"avator-wrapper\">\n        <div class=\"avator\"></div>\n        <small>鼠</small>\n      </div>\n    </div>\n    <button\n      type=\"submit\"\n      class=\"w-full h20 bg-emerald-600 text-white py-2 rounded-full font-semibold hover:bg-emerald-700 transition-colors\"\n    ></button>\n  </div>\n  x\n</template>\n\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nimport { useChatSocket } from \"../../composables/useChatSocket\";\n\nconst { login, register } = useChatSocket();\n\nconst mode = ref<\"login\" | \"register\">(\"login\");\nconst username = ref(\"\");\nconst password = ref(\"\");\n\nfunction handleSubmit() {\n  if (mode.value === \"login\") {\n    login(username.value, password.value);\n  } else {\n    register(username.value, password.value);\n  }\n}\n</script>\n\n<style scoped>\n.avator {\n  @apply bg-stone-800;\n  font-size: 1rem;\n  width: 4rem;\n  height: 4rem;\n  line-height: 4rem;\n  border-radius: 1rem;\n  cursor: pointer;\n  user-select: none;\n}\n.avator:active {\n  @apply bg-emerald-900;\n}\n</style>\n"
+        }
+    ]
+}

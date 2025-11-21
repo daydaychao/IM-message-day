@@ -1,0 +1,417 @@
+import { WebSocketServer, WebSocket } from 'ws'
+import { v4 as uuidv4 } from 'uuid'
+import { connectRedis } from './redis'
+import { store } from './store'
+import {
+  WSMessage,
+  AuthPayload,
+  RegisterPayload,
+  MessagePayload,
+  TypingPayload,
+  ReadPayload,
+  CreateGroupPayload,
+  Message,
+  ConnectedClient
+} from './types'
+
+const PORT = 8080
+
+// Initialize Redis connection
+connectRedis()
+  .then(() => {
+    console.log('Redis connected successfully')
+    startServer()
+  })
+  .catch((err) => {
+    console.error('Failed to connect to Redis:', err)
+    console.log('Please make sure Redis is running on localhost:6379')
+    process.exit(1)
+  })
+
+function startServer() {
+  const wss = new WebSocketServer({ port: PORT })
+  console.log(`WebSocket server started on port ${PORT}`)
+
+// Map to track which userId belongs to which WebSocket
+const wsToUserId = new WeakMap<WebSocket, string>()
+
+wss.on('connection', (ws: WebSocket) => {
+  console.log('New client connected')
+
+  ws.on('message', (data: Buffer) => {
+    try {
+      const message: WSMessage = JSON.parse(data.toString())
+      handleMessage(ws, message)
+    } catch (error) {
+      console.error('Error parsing message:', error)
+      sendError(ws, 'Invalid message format')
+    }
+  })
+
+  ws.on('close', () => {
+    const userId = wsToUserId.get(ws)
+    if (userId) {
+      store.removeConnectedClient(userId)
+      console.log(`User ${userId} disconnected`)
+
+      // Notify other users
+      broadcastUserList()
+    }
+  })
+
+  ws.on('error', (error) => {
+    console.error('WebSocket error:', error)
+  })
+})
+
+function handleMessage(ws: WebSocket, message: WSMessage) {
+  switch (message.type) {
+    case 'register':
+      handleRegister(ws, message.payload as RegisterPayload)
+      break
+    case 'auth':
+      handleAuth(ws, message.payload as AuthPayload)
+      break
+    case 'message':
+      handleChatMessage(ws, message.payload as MessagePayload)
+      break
+    case 'typing':
+      handleTyping(ws, message.payload as TypingPayload)
+      break
+    case 'read':
+      handleRead(ws, message.payload as ReadPayload)
+      break
+    case 'create_group':
+      handleCreateGroup(ws, message.payload as CreateGroupPayload)
+      break
+    case 'get_groups':
+      handleGetGroups(ws)
+      break
+    case 'get_users':
+      handleGetUsers(ws)
+      break
+    default:
+      sendError(ws, 'Unknown message type')
+  }
+}
+
+function handleRegister(ws: WebSocket, payload: RegisterPayload) {
+  const { username, password } = payload
+
+  console.log(`Registration attempt: username="${username}"`)
+
+  // Check if user already exists
+  if (store.getUserByUsername(username)) {
+    console.log(`Username already exists: ${username}`)
+    sendError(ws, 'Username already exists')
+    return
+  }
+
+  // Create new user
+  const userId = uuidv4()
+  store.createUser({
+    id: userId,
+    username,
+    password
+  })
+
+  // Store connection (auto-login after registration)
+  wsToUserId.set(ws, userId)
+  store.addConnectedClient({
+    userId: userId,
+    username: username,
+    ws
+  })
+
+  console.log(`User registered successfully: ${username}`)
+  console.log(`Total users in database: ${store.getAllUsers().length}`)
+
+  send(ws, {
+    type: 'register_success',
+    payload: {
+      userId,
+      username
+    }
+  })
+
+  // Broadcast updated user list
+  broadcastUserList()
+}
+
+function handleAuth(ws: WebSocket, payload: AuthPayload) {
+  const { username, password } = payload
+
+  console.log(`Login attempt: username="${username}"`)
+  const user = store.getUserByUsername(username)
+
+  if (!user) {
+    console.log(`User not found: ${username}`)
+    sendError(ws, 'Invalid credentials')
+    return
+  }
+
+  if (user.password !== password) {
+    console.log(`Incorrect password for user: ${username}`)
+    sendError(ws, 'Invalid credentials')
+    return
+  }
+
+  // Store connection
+  wsToUserId.set(ws, user.id)
+  store.addConnectedClient({
+    userId: user.id,
+    username: user.username,
+    ws
+  })
+
+  console.log(`User authenticated: ${username}`)
+
+  // Send success response
+  send(ws, {
+    type: 'auth_success',
+    payload: {
+      userId: user.id,
+      username: user.username
+    }
+  })
+
+  // Send user groups
+  const groups = store.getUserGroups(user.id)
+  send(ws, {
+    type: 'groups_list',
+    payload: { groups }
+  })
+
+  // Broadcast updated user list
+  broadcastUserList()
+}
+
+function handleChatMessage(ws: WebSocket, payload: MessagePayload) {
+  const userId = wsToUserId.get(ws)
+  if (!userId) {
+    sendError(ws, 'Not authenticated')
+    return
+  }
+
+  const user = store.getUserById(userId)
+  if (!user) return
+
+  const messageId = uuidv4()
+  const isGroup = !!payload.groupId
+  const conversationId = payload.groupId || payload.recipientId || ''
+
+  const message: Message = {
+    id: messageId,
+    senderId: userId,
+    senderName: user.username,
+    content: payload.content,
+    type: payload.type,
+    timestamp: Date.now(),
+    status: 'sent',
+    conversationId,
+    isGroup
+  }
+
+  store.addMessage(message)
+
+  // Send confirmation to sender
+  send(ws, {
+    type: 'message_sent',
+    payload: { message }
+  })
+
+  // Deliver to recipients
+  if (isGroup) {
+    // Group message
+    const group = store.getGroupById(conversationId)
+    if (group) {
+      group.members.forEach(memberId => {
+        if (memberId !== userId) {
+          const client = store.getConnectedClient(memberId)
+          if (client) {
+            send(client.ws, {
+              type: 'message_received',
+              payload: { message }
+            })
+            // Update to delivered
+            store.updateMessageStatus(messageId, 'delivered')
+          }
+        }
+      })
+    }
+  } else {
+    // DM
+    const recipient = store.getConnectedClient(conversationId)
+    if (recipient) {
+      send(recipient.ws, {
+        type: 'message_received',
+        payload: { message }
+      })
+      // Update to delivered
+      store.updateMessageStatus(messageId, 'delivered')
+
+      // Notify sender of delivery
+      send(ws, {
+        type: 'message_delivered',
+        payload: { messageId }
+      })
+    }
+  }
+}
+
+function handleTyping(ws: WebSocket, payload: TypingPayload) {
+  const userId = wsToUserId.get(ws)
+  if (!userId) return
+
+  const user = store.getUserById(userId)
+  if (!user) return
+
+  if (payload.groupId) {
+    // Broadcast to group
+    const group = store.getGroupById(payload.groupId)
+    if (group) {
+      group.members.forEach(memberId => {
+        if (memberId !== userId) {
+          const client = store.getConnectedClient(memberId)
+          if (client) {
+            send(client.ws, {
+              type: 'user_typing',
+              payload: {
+                userId,
+                username: user.username,
+                groupId: payload.groupId,
+                isTyping: payload.isTyping
+              }
+            })
+          }
+        }
+      })
+    }
+  } else if (payload.recipientId) {
+    // Send to specific user
+    const recipient = store.getConnectedClient(payload.recipientId)
+    if (recipient) {
+      send(recipient.ws, {
+        type: 'user_typing',
+        payload: {
+          userId,
+          username: user.username,
+          isTyping: payload.isTyping
+        }
+      })
+    }
+  }
+}
+
+function handleRead(ws: WebSocket, payload: ReadPayload) {
+  const userId = wsToUserId.get(ws)
+  if (!userId) return
+
+  const message = store.getMessageById(payload.messageId)
+  if (!message) return
+
+  store.updateMessageStatus(payload.messageId, 'read')
+
+  // Notify sender
+  const sender = store.getConnectedClient(message.senderId)
+  if (sender) {
+    send(sender.ws, {
+      type: 'message_read',
+      payload: { messageId: payload.messageId }
+    })
+  }
+}
+
+function handleCreateGroup(ws: WebSocket, payload: CreateGroupPayload) {
+  const userId = wsToUserId.get(ws)
+  if (!userId) {
+    sendError(ws, 'Not authenticated')
+    return
+  }
+
+  const groupId = uuidv4()
+  const group = {
+    id: groupId,
+    name: payload.name,
+    members: [userId, ...payload.memberIds],
+    createdBy: userId,
+    createdAt: Date.now()
+  }
+
+  store.createGroup(group)
+
+  // Notify all members
+  group.members.forEach(memberId => {
+    const client = store.getConnectedClient(memberId)
+    if (client) {
+      send(client.ws, {
+        type: 'group_created',
+        payload: { group }
+      })
+    }
+  })
+
+  console.log(`Group created: ${payload.name}`)
+}
+
+function handleGetGroups(ws: WebSocket) {
+  const userId = wsToUserId.get(ws)
+  if (!userId) {
+    sendError(ws, 'Not authenticated')
+    return
+  }
+
+  const groups = store.getUserGroups(userId)
+  send(ws, {
+    type: 'groups_list',
+    payload: { groups }
+  })
+}
+
+function handleGetUsers(ws: WebSocket) {
+  const userId = wsToUserId.get(ws)
+  if (!userId) {
+    sendError(ws, 'Not authenticated')
+    return
+  }
+
+  const allUsers = store.getAllUsers().map(u => ({
+    id: u.id,
+    username: u.username,
+    isOnline: !!store.getConnectedClient(u.id)
+  }))
+
+  send(ws, {
+    type: 'users_list',
+    payload: { users: allUsers }
+  })
+}
+
+function broadcastUserList() {
+  const connectedClients = store.getAllConnectedClients()
+  const allUsers = store.getAllUsers().map(u => ({
+    id: u.id,
+    username: u.username,
+    isOnline: !!store.getConnectedClient(u.id)
+  }))
+
+  connectedClients.forEach(client => {
+    send(client.ws, {
+      type: 'users_list',
+      payload: { users: allUsers }
+    })
+  })
+}
+
+function send(ws: WebSocket, message: any) {
+  if (ws.readyState === WebSocket.OPEN) {
+    ws.send(JSON.stringify(message))
+  }
+}
+
+function sendError(ws: WebSocket, error: string) {
+  send(ws, {
+    type: 'error',
+    payload: { error }
+  })
+}

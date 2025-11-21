@@ -1,0 +1,30 @@
+{
+    "sourceFile": "client/src/App.vue",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 3,
+            "patches": [
+                {
+                    "date": 1763733767841,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1763733773756,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,10 +12,10 @@\n import { onMounted, onUnmounted } from \"vue\";\n import { useAuthStore } from \"./stores/auth\";\n import { useChatSocket } from \"./composables/useChatSocket\";\n import LoginPage from \"./components/login/LoginPage.vue\";\n-import ConversationList from \"./components/ConversationList.vue\";\n-import MessageList from \"./components/MessageList.vue\";\n+import ConversationList from \"./components/chat/ConversationList.vue\";\n+import MessageList from \"./components/chat/MessageList.vue\";\n \n const authStore = useAuthStore();\n const { connect, disconnect } = useChatSocket();\n \n"
+                },
+                {
+                    "date": 1763733836913,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,11 +1,11 @@\n <template>\n   <div class=\"w-full h-full\">\n     <LoginPage v-if=\"!authStore.isAuthenticated\" />\n-    <div v-else class=\"flex h-full\">\n+    < v-else class=\"flex h-full\">\n       <ConversationList />\n       <MessageList />\n-    </div>\n+    </>\n   </div>\n </template>\n \n <script setup lang=\"ts\">\n"
+                },
+                {
+                    "date": 1763733842048,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,11 +1,11 @@\n <template>\n   <div class=\"w-full h-full\">\n     <LoginPage v-if=\"!authStore.isAuthenticated\" />\n-    < v-else >\n+    <div v-else class=\"flex h-full\">\n       <ConversationList />\n       <MessageList />\n-    </>\n+    </div>\n   </div>\n </template>\n \n <script setup lang=\"ts\">\n"
+                }
+            ],
+            "date": 1763733767841,
+            "name": "Commit-0",
+            "content": "<template>\n  <div class=\"w-full h-full\">\n    <LoginPage v-if=\"!authStore.isAuthenticated\" />\n    <div v-else class=\"flex h-full\">\n      <ConversationList />\n      <MessageList />\n    </div>\n  </div>\n</template>\n\n<script setup lang=\"ts\">\nimport { onMounted, onUnmounted } from \"vue\";\nimport { useAuthStore } from \"./stores/auth\";\nimport { useChatSocket } from \"./composables/useChatSocket\";\nimport LoginPage from \"./components/login/LoginPage.vue\";\nimport ConversationList from \"./components/ConversationList.vue\";\nimport MessageList from \"./components/MessageList.vue\";\n\nconst authStore = useAuthStore();\nconst { connect, disconnect } = useChatSocket();\n\nonMounted(() => {\n  connect();\n});\n\nonUnmounted(() => {\n  disconnect();\n});\n</script>\n"
+        }
+    ]
+}

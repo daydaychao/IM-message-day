@@ -1,0 +1,22 @@
+{
+    "sourceFile": "client/src/types.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1763741414227,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1763742757300,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -80,5 +80,6 @@\n   \"🎉\",\n   \"✨\",\n   \"💪\",\n   \"🙏\",\n+  \"X\"\n ];\n"
+                }
+            ],
+            "date": 1763741414227,
+            "name": "Commit-0",
+            "content": "export interface User {\n  id: string\n  username: string\n  zodiac: string\n  isOnline: boolean\n}\n\nexport interface Message {\n  id: string\n  fromUserId: string\n  toUserId: string\n  content: string\n  type: 'text' | 'image' | 'emoji'\n  timestamp: number\n  status: 'sent' | 'delivered' | 'read'\n}\n\nexport interface Conversation {\n  userId: string\n  username: string\n  zodiac: string\n  isOnline: boolean\n  lastMessage?: Message\n  unreadCount: number\n}\n\nexport interface WSMessage {\n  type: 'auth' | 'register' | 'message' | 'typing' | 'read' | 'get_users' | 'user_status'\n  userId?: string\n  username?: string\n  zodiac?: string\n  toUserId?: string\n  content?: string\n  messageType?: 'text' | 'image' | 'emoji'\n  typing?: boolean\n  messageId?: string\n  users?: User[]\n  messages?: Message[]\n  success?: boolean\n  error?: string\n\n  payload:\n}\n\nexport const ZODIACS = [\n  { name: '鼠', emoji: '🐭', id: 'rat' },\n  { name: '牛', emoji: '🐮', id: 'ox' },\n  { name: '虎', emoji: '🐯', id: 'tiger' },\n  { name: '兔', emoji: '🐰', id: 'rabbit' },\n  { name: '龍', emoji: '🐲', id: 'dragon' },\n  { name: '蛇', emoji: '🐍', id: 'snake' },\n  { name: '馬', emoji: '🐴', id: 'horse' },\n  { name: '羊', emoji: '🐑', id: 'goat' },\n  { name: '猴', emoji: '🐵', id: 'monkey' },\n  { name: '雞', emoji: '🐔', id: 'rooster' },\n  { name: '狗', emoji: '🐶', id: 'dog' },\n  { name: '豬', emoji: '🐷', id: 'pig' }\n]\n\nexport const EMOJIS = ['😀', '😂', '😍', '🥰', '😎', '🤔', '😭', '😱', '🔥', '💯', '👍', '❤️', '🎉', '✨', '💪', '🙏']\n"
+        }
+    ]
+}

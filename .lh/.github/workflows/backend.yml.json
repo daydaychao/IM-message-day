@@ -1,0 +1,18 @@
+{
+    "sourceFile": ".github/workflows/backend.yml",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1763739141931,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1763739141931,
+            "name": "Commit-0",
+            "content": "name: Backend Docker CI\r\n\r\non:\r\n  push:\r\n    branches: [main] # 你要觸發的 branch\r\n\r\njobs:\r\n  build:\r\n    runs-on: ubuntu-latest\r\n\r\n    steps:\r\n      - name: Checkout repo\r\n        uses: actions/checkout@v4\r\n\r\n      - name: Set up Docker Buildx\r\n        uses: docker/setup-buildx-action@v3\r\n\r\n      - name: Build backend Docker image\r\n        working-directory: ./server # 重點：你的 Dockerfile / compose 在 server 下面\r\n        run: |\r\n          docker build -t im-backend:latest .\r\n"
+        }
+    ]
+}

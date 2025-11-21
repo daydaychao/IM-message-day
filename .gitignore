@@ -1,0 +1,11 @@
+# 忽略所有 node_modules
+**/node_modules/
+
+# 忽略所有 build 產物
+**/dist/
+**/build/
+
+# 一些雜物
+.DS_Store
+Thumbs.db
+.idea/
