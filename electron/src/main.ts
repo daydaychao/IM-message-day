@@ -1,50 +1,50 @@
-import { app, BrowserWindow, dialog } from 'electron'
-import * as path from 'path'
+import { app, BrowserWindow, dialog } from "electron";
+import * as path from "path";
 
-let mainWindow: BrowserWindow | null = null
+let mainWindow: BrowserWindow | null = null;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1200,
     height: 800,
-    minWidth: 800,
+    minWidth: 500,
     minHeight: 600,
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
-      preload: path.join(__dirname, 'preload.js'),
-      webSecurity: false  // Allow WebSocket connections in dev mode
-    }
-  })
+      preload: path.join(__dirname, "preload.js"),
+      webSecurity: false, // Allow WebSocket connections in dev mode
+    },
+  });
 
   // In development, load from Vite dev server
   // In production, load from built files
-  const isDev = process.env.NODE_ENV === 'development'
+  const isDev = process.env.NODE_ENV === "development";
 
   if (isDev) {
-    mainWindow.loadURL('http://localhost:3000')
-    mainWindow.webContents.openDevTools()
+    mainWindow.loadURL("http://localhost:3000");
+    mainWindow.webContents.openDevTools();
   } else {
-    mainWindow.loadFile(path.join(__dirname, '../../client/dist/index.html'))
+    mainWindow.loadFile(path.join(__dirname, "../../client/dist/index.html"));
   }
 
-  mainWindow.on('closed', () => {
-    mainWindow = null
-  })
+  mainWindow.on("closed", () => {
+    mainWindow = null;
+  });
 }
 
 app.whenReady().then(() => {
-  createWindow()
+  createWindow();
 
-  app.on('activate', () => {
+  app.on("activate", () => {
     if (BrowserWindow.getAllWindows().length === 0) {
-      createWindow()
+      createWindow();
     }
-  })
-})
+  });
+});
 
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit()
+app.on("window-all-closed", () => {
+  if (process.platform !== "darwin") {
+    app.quit();
   }
-})
+});

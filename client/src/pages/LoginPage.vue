@@ -3,7 +3,7 @@
     <!-- Terminal Header -->
     <div class="terminal-header">
       <div class="terminal-title hacker-glow">[ TERMINAL_CHAT_V1.0 ]</div>
-      <div class="terminal-subtitle">SELECT YOUR AVATAR</div>
+      <div class="terminal-subtitle">SELECT_YOUR_AVATAR</div>
     </div>
 
     <!-- Zodiac Grid -->
@@ -163,14 +163,14 @@ async function confirmLogin() {
 .zodiac-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  max-width: 400px;
+  gap: 5px;
+  max-width: 350px;
   width: 100%;
 }
 
 .zodiac-card {
   background: var(--dark-surface);
-  padding: 10px;
+  padding: 5px;
   cursor: pointer;
   transition: all 0.3s ease;
   display: flex;
@@ -190,7 +190,7 @@ async function confirmLogin() {
 }
 
 .zodiac-emoji {
-  font-size: 48px;
+  font-size: 42px;
 }
 
 .zodiac-name {

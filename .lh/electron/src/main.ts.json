@@ -1,0 +1,26 @@
+{
+    "sourceFile": "electron/src/main.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1763881147815,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1763881874662,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,50 @@\n+import { app, BrowserWindow, dialog } from \"electron\";\n+import * as path from \"path\";\n+\n+let mainWindow: BrowserWindow | null = null;\n+\n+function createWindow() {\n+  mainWindow = new BrowserWindow({\n+    width: 1200,\n+    height: 800,\n+    minWidth: 600,\n+    minHeight: 600,\n+    webPreferences: {\n+      nodeIntegration: false,\n+      contextIsolation: true,\n+      preload: path.join(__dirname, \"preload.js\"),\n+      webSecurity: false, // Allow WebSocket connections in dev mode\n+    },\n+  });\n+\n+  // In development, load from Vite dev server\n+  // In production, load from built files\n+  const isDev = process.env.NODE_ENV === \"development\";\n+\n+  if (isDev) {\n+    mainWindow.loadURL(\"http://localhost:3000\");\n+    mainWindow.webContents.openDevTools();\n+  } else {\n+    mainWindow.loadFile(path.join(__dirname, \"../../client/dist/index.html\"));\n+  }\n+\n+  mainWindow.on(\"closed\", () => {\n+    mainWindow = null;\n+  });\n+}\n+\n+app.whenReady().then(() => {\n+  createWindow();\n+\n+  app.on(\"activate\", () => {\n+    if (BrowserWindow.getAllWindows().length === 0) {\n+      createWindow();\n+    }\n+  });\n+});\n+\n+app.on(\"window-all-closed\", () => {\n+  if (process.platform !== \"darwin\") {\n+    app.quit();\n+  }\n+});\n"
+                },
+                {
+                    "date": 1763881880124,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,9 +6,9 @@\n function createWindow() {\n   mainWindow = new BrowserWindow({\n     width: 1200,\n     height: 800,\n-    minWidth: 600,\n+    minWidth: 500,\n     minHeight: 600,\n     webPreferences: {\n       nodeIntegration: false,\n       contextIsolation: true,\n@@ -47,54 +47,4 @@\n   if (process.platform !== \"darwin\") {\n     app.quit();\n   }\n });\n-import { app, BrowserWindow, dialog } from 'electron'\n-import * as path from 'path'\n-\n-let mainWindow: BrowserWindow | null = null\n-\n-function createWindow() {\n-  mainWindow = new BrowserWindow({\n-    width: 1200,\n-    height: 800,\n-    minWidth: 600,\n-    minHeight: 600,\n-    webPreferences: {\n-      nodeIntegration: false,\n-      contextIsolation: true,\n-      preload: path.join(__dirname, 'preload.js'),\n-      webSecurity: false  // Allow WebSocket connections in dev mode\n-    }\n-  })\n-\n-  // In development, load from Vite dev server\n-  // In production, load from built files\n-  const isDev = process.env.NODE_ENV === 'development'\n-\n-  if (isDev) {\n-    mainWindow.loadURL('http://localhost:3000')\n-    mainWindow.webContents.openDevTools()\n-  } else {\n-    mainWindow.loadFile(path.join(__dirname, '../../client/dist/index.html'))\n-  }\n-\n-  mainWindow.on('closed', () => {\n-    mainWindow = null\n-  })\n-}\n-\n-app.whenReady().then(() => {\n-  createWindow()\n-\n-  app.on('activate', () => {\n-    if (BrowserWindow.getAllWindows().length === 0) {\n-      createWindow()\n-    }\n-  })\n-})\n-\n-app.on('window-all-closed', () => {\n-  if (process.platform !== 'darwin') {\n-    app.quit()\n-  }\n-})\n"
+                }
+            ],
+            "date": 1763881147815,
+            "name": "Commit-0",
+            "content": "import { app, BrowserWindow, dialog } from 'electron'\nimport * as path from 'path'\n\nlet mainWindow: BrowserWindow | null = null\n\nfunction createWindow() {\n  mainWindow = new BrowserWindow({\n    width: 1200,\n    height: 800,\n    minWidth: 600,\n    minHeight: 600,\n    webPreferences: {\n      nodeIntegration: false,\n      contextIsolation: true,\n      preload: path.join(__dirname, 'preload.js'),\n      webSecurity: false  // Allow WebSocket connections in dev mode\n    }\n  })\n\n  // In development, load from Vite dev server\n  // In production, load from built files\n  const isDev = process.env.NODE_ENV === 'development'\n\n  if (isDev) {\n    mainWindow.loadURL('http://localhost:3000')\n    mainWindow.webContents.openDevTools()\n  } else {\n    mainWindow.loadFile(path.join(__dirname, '../../client/dist/index.html'))\n  }\n\n  mainWindow.on('closed', () => {\n    mainWindow = null\n  })\n}\n\napp.whenReady().then(() => {\n  createWindow()\n\n  app.on('activate', () => {\n    if (BrowserWindow.getAllWindows().length === 0) {\n      createWindow()\n    }\n  })\n})\n\napp.on('window-all-closed', () => {\n  if (process.platform !== 'darwin') {\n    app.quit()\n  }\n})\n"
+        }
+    ]
+}
